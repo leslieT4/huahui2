@@ -1,0 +1,303 @@
+/*下拉栏*/
+var clickBtn=document.getElementsByClassName("nav_headerin")[0];
+var dropdown_menu=document.getElementsByClassName("dropdown_menu")[0];
+var isOpen=false;
+clickBtn.addEventListener("click",function(){
+    isOpen=!isOpen;
+    if (isOpen){
+        dropdown_menu.style.display="block";
+    }
+    else{
+        dropdown_menu.style.display="none";
+    }
+})
+//产品分类选择
+var flowerDatas=[{
+        type:'全部',
+        content:[{
+                url:'images/01.jpg',
+                detailed:'第一个盆栽'
+            },
+            {
+                url:'images/07.jpg',
+                detailed:'第四个盆栽'
+            },
+            {
+                url:'images/05.jpg',
+                detailed:'第五个盆栽'
+            },
+            {
+                url:'images/06.jpg',
+                detailed:'第六个盆栽'
+            },
+            {
+                url:'images/07.jpg',
+                detailed:'第七个盆栽'
+            },
+            {
+                url:'images/08.jpg',
+                detailed:'第八个盆栽'
+            },
+            {
+                url:'images/09.jpg',
+                detailed:'第九个盆栽'
+            },
+            {
+                url:'images/01.jpg',
+                detailed:'第十个盆栽'
+            },
+            {
+                url:'images/02.jpg',
+                detailed:'第十一个盆栽'
+            },
+            {
+                url:'images/03.jpg',
+                detailed:'第十二个盆栽'
+            },
+            {
+                url:'images/04.jpg',
+                detailed:'第十三个盆栽'
+            },
+            {
+                url:'images/05.jpg',
+                detailed:'第十四个盆栽'
+            },
+            {
+                url:'images/08.jpg',
+                detailed:'第八个盆栽'
+            },
+            {
+                url:'images/05.jpg',
+                detailed:'第二十个盆栽'
+            },
+            {
+                url:'images/05.jpg',
+                detailed:'第五个盆栽'
+            },
+            {
+                url:'images/02.jpg',
+                detailed:'第十一个盆栽',
+            },
+            {
+                url:'images/08.jpg',
+                detailed:'第十七个盆栽'
+            },
+            {
+                url:'images/06.jpg',
+                detailed:'第六个盆栽'
+            },
+            {
+                url:'images/03.jpg',
+                detailed:'第十二个盆栽'
+            },
+            {
+                url:'images/09.jpg',
+                detailed:'第十八个盆栽'
+            },
+            {
+                url:'images/07.jpg',
+                detailed:'第七个盆栽'  
+            },
+            {
+                url:'images/04.jpg',
+                detailed:'第十三个盆栽'
+            },
+            {
+                url:'images/01.jpg',
+                detailed:'第十九个盆栽'
+            },
+            {
+                url:'images/09.jpg',
+                detailed:'第九个盆栽'
+            },
+            {
+                url:'images/04.jpg',
+                detailed:'第十五个盆栽'
+            },
+            {
+                url:'images/03.jpg',
+                detailed:'第二十一个盆栽'
+            },
+            {
+                url:'images/01.jpg',
+                detailed:'第十个盆栽',
+            },
+            {
+                url:'images/07.jpg',
+                detailed:'第十六个盆栽'
+            },
+        ]
+    },
+    {
+        type:'探病鲜花',
+        content:[{
+                url:'images/01.jpg',
+                detailed:'第一个盆栽'
+            },
+            {
+                url:'images/08.jpg',
+                detailed:'第八个盆栽'
+            },
+            {
+                url:'images/05.jpg',
+                detailed:'第二十个盆栽'
+            },
+        ]
+    },
+    {
+        type:'开业鲜花',
+        content:[{
+                url:'images/07.jpg',
+                detailed:'第四个盆栽'
+             },
+        ]
+    },
+    {
+        type:'生日鲜花',
+        content:[
+            {
+                url:'images/05.jpg',
+                detailed:'第五个盆栽'
+            },
+            {
+                url:'images/02.jpg',
+                detailed:'第十一个盆栽',
+            },
+            {
+                url:'images/08.jpg',
+                detailed:'第十七个盆栽'
+            },
+        ]
+    },
+    {
+        type:'祝福鲜花',
+        content:[
+            {
+                url:'images/06.jpg',
+                detailed:'第六个盆栽'
+            },
+            {
+                url:'images/03.jpg',
+                detailed:'第十二个盆栽'
+            },
+            {
+                url:'images/09.jpg',
+                detailed:'第十八个盆栽'
+            },
+            {
+                url:'images/06.jpg',
+                detailed:'第二十四个盆栽'
+            },
+        ]
+    },
+    {
+        type:'道歉鲜花',
+        content:[
+            {
+                url:'images/07.jpg',
+                detailed:'第七个盆栽'  
+            },
+            {
+                url:'images/04.jpg',
+                detailed:'第十三个盆栽'
+            },
+            {
+                url:'images/01.jpg',
+                detailed:'第十九个盆栽'
+            },
+        ]
+    },
+    {
+        type:'毕业鲜花',
+        content:[
+            {
+                url:'images/09.jpg',
+                detailed:'第九个盆栽'
+            },
+            {
+                url:'images/04.jpg',
+                detailed:'第十五个盆栽'
+            },
+            {
+                url:'images/03.jpg',
+                detailed:'第二十一个盆栽'
+            },
+        ]
+    },
+    {
+        type:'爱情鲜花',
+        content:[
+            {
+                url:'images/01.jpg',
+                detailed:'第十个盆栽',
+            },
+            {
+                url:'images/07.jpg',
+                detailed:'第十六个盆栽'
+            },
+        ]
+    }
+]
+//打开展开全部
+var currentType=document.getElementById('currentType');
+currentType.innerHTML="全部";
+
+var type=document.getElementById('type');
+var typeShow=document.getElementById('typeShow');
+//类别标题
+function typeFun(){
+    for (var i=0,len=flowerDatas.length;i<len;i++) {
+        var span=document.createElement('span');
+        var text=document.createTextNode(flowerDatas[i].type);
+        span.appendChild(text);
+        type.appendChild(span);
+        (function(i){
+            span.onclick=function(){
+                showType(i);
+            }
+        })(i);
+    }
+}
+//开始展示全部
+function initShow(){
+    var currentShow=document.createElement('div');
+    currentShow.id='currentShow';
+    for (var i=0,len=flowerDatas.length;i<len;i++){
+        for (var j=0,len=flowerDatas[i].content.length;j<len;j++){
+            var div=document.createElement('div');
+            div.className='currentItem';
+            var img=document.createElement('img');
+            img.src=flowerDatas[i].content[j].url;
+            div.appendChild(img);
+            var p=document.createElement('p');
+            var text=document.createTextNode(flowerDatas[i].content[j].detailed);
+            p.appendChild(text);
+            div.appendChild(p);
+            currentShow.appendChild(div);
+        }   
+    }
+    typeShow.appendChild(currentShow);
+}
+//切换
+function showType(typeIndex){
+    currentType.innerHTML=flowerDatas[typeIndex].type;
+    document.getElementById('typeShow').removeChild(document.getElementById('currentShow'));
+    //重新展示
+    var currentShow=document.createElement('div');
+    currentShow.id='currentShow';
+    for (var j=0,len=flowerDatas[typeIndex].content.length;j<len;j++){
+        var div=document.createElement('div');
+        div.className='currentItem';
+        var img=document.createElement('img');
+        img.src=flowerDatas[typeIndex].content[j].url;
+        div.appendChild(img);
+        var p=document.createElement('p');
+        var text=document.createTextNode(flowerDatas[typeIndex].content[j].detailed);
+        p.appendChild(text);
+        div.appendChild(p);
+        currentShow.appendChild(div);
+    }
+    typeShow.appendChild(currentShow);
+}
+typeFun();
+initShow();
